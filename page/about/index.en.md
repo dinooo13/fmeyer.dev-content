@@ -1,7 +1,9 @@
 ---
 title: About me
 description: Fabian Meyer
+slug: about
 aliases:
+  - about-me
   - about-us
   - contact
 menu:
