@@ -139,7 +139,7 @@ Punkte.
 
 ![](phpstrm01.png)
 
-Hier klicken wir auf das Plus und wählen From Docker, ...
+Hier klicken wir auf das + und wählen From Docker, ...
 
 ![](phpstrm02.png)
 
@@ -147,12 +147,12 @@ Bei den Punkten wählen wir Docker und suchen in der Liste unser vorher erstellt
 
 ![](phpstrm03.png)
 
-So sollte das dann aussehen wichtig ist dass ihr hier eine PHP und XDebug Version seht.
+So sollte das dann aussehen wichtig ist, dass ihr hier eine PHP und XDebug Version seht.
 
 ![](phpstrm04.png)
 
 Das wars für den CLI Interpreter, richten wir nun ein Test Framework ein um PHPUnit in PHPStorm nutzen zu können. Wir
-wählen hier nach dem Klick auf Plus PHPUnit by Remote Interpreter.
+wählen hier nach dem Klick auf + PHPUnit by Remote Interpreter.
 
 ![](phpstrm05.png)
 
@@ -169,4 +169,4 @@ So nun können wir endlich unser lokales PHP wegschmeißen (müssen wir aber nic
 unserer lokalen Entwicklung und können Docker Experte in unser Resume schreiben 😉. Unten habe ich euch noch ein paar
 weiterführende Links zu Dokumentationen da gelassen ✌🏻. Das ist mein erster Blog-Beitrag / Tutorial - ich hoffe, es hat
 euch gefallen! Habt ihr Feedback, Vorschläge, Verbesserungen oder ein Rechtschreibfehler gefunden 😱? Lasst es mich
-wissen oder öffnet hier eine PR --> [GitHub](https://github.com/dinooo13/fmeyer.dev-content)
+wissen oder öffnet hier eine PR --> [GitHub](https://github.com/dinooo13/fmeyer.dev-content).
