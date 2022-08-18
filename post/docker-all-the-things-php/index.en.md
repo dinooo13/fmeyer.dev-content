@@ -3,6 +3,7 @@ author: Fabian Meyer
 title: Docker all the things - PHP Edition 🚀
 description: We docker till we drop! At least everything we need for development.
 date: 2022-08-18
+image: docker_php.png
 tags:
   - php
   - docker

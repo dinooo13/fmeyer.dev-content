@@ -3,6 +3,7 @@ author: Fabian Meyer
 title: Docker all the things - PHP Edition 🚀
 description: Wir dockern was das Zeug hält. Und zwar alles was man für die PHP Entwicklung braucht.
 date: 2022-08-18
+image: docker_php.png
 tags:
   - php
   - docker
