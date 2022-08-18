@@ -1,29 +1,41 @@
-+++
-author = "Fabian Meyer"
-title = "Docker all the things - PHP Edition"
-date = "2022-08-16"
-description = "Wir dockern was das Zeug hält. Und zwar alles was man für die PHP Entwicklung braucht."
-tags = [
-    "php",
-    "docker",
-    "docker-compose",
-    "composer",
-]
-categories = [
-    "Tutorial",
-]
-+++
+---
+author: Fabian Meyer
+title: Docker all the things - PHP Edition 🚀
+description: Wir dockern was das Zeug hält. Und zwar alles was man für die PHP Entwicklung braucht.
+date: 2022-08-18
+tags:
+  - php
+  - docker
+  - composer
+  - phpstorm
+categories:
+  - Tutorial
+links:
+  - title: Kein Docker?
+    description: Hier findest du es!
+    website: https://docs.docker.com/get-docker/
+  - title: Ich nutze aber VSCode
+    description: Dann schau mal hier 👀 (Kriege kein Geld dafür, würde ich aber nehmen JetBrains!)
+    website: https://www.jetbrains.com/phpstorm/
+  - title: php Image
+    description: Schau dir das php-Image auf Docker Hub an!
+    website: https://hub.docker.com/_/php/
+  - title: composer Image
+    description: Schau dir das composer-Image auf Docker Hub an!
+    website: https://hub.docker.com/_/composer/
+  - title: php-extension-installer Image
+    description: Schau dir das php-extension-installer-Image auf Docker Hub an!
+    website: https://hub.docker.com/r/mlocati/php-extension-installer/
+---
 
-## Was ist Docker und warum sollte man das benutzen?
+## Was ist Docker und warum sollten wir das benutzen?
 
 Docker ist eine Containerisierungsplattform die es uns ermöglicht unsere Entwicklungsumgebung in speziell auf den Zweck
-zugeschnittene Container zu verpacken, die wir dann einfach wiederverwenden können. Dabei sparen wir auf unserem System
-gegenüber normaler Virtualisierung ordentlich Ressourcen ein, denn Docker-Container teilen sich die wichtigsten
-Komponenten des Linux-Kernels. Sollen nun mehrere Docker-Container miteinander kommunizieren wie z.B. PHP und eine
-Datenbank kommt Docker-Compose ins Spiel. Mit Docker-Compose können wir mehrere Services verbinden, steuern und aufsetzen.
+zugeschnittene Container zu verpacken, die wir dann einfach wiederverwenden können. Ein Docker-Image ist quasi eine 
+Anleitung zum Erstellen eines Docker-Containers.
 
 In der Welt von PHP können wir dank Docker ganz einfach mit verschiedenen PHP-Versionen, Composer-Versionen und mehr
-arbeiten. Ich werde euch zeigen wie ihr mit Docker und Docker-Compose ein kleines Projekt containerisiert und wie ihr
+arbeiten. Ich werde euch zeigen wie ihr mit Docker eure Entwicklungsprozesse containerisiert und wie ihr
 PHP-Skripte lokal (in verschieden PHP-Versionen) ausführen könnt, ohne PHP überhaupt lokal installiert zu haben!
 
 ## Gedockertes PHP im Terminal
@@ -34,31 +46,127 @@ Normalerweise führen wir PHP Skripte lokal folgendermaßen aus:
 php script.php
 ```
 
-Hierbei sind wir aber immer auf die aktuell bei uns installierte Version beschränkt. Theoretisch könnten wir auch mehrere
-PHP Installation auf dem System haben und zwischen denen wechseln, aber es gibt eine bessere Lösung:
+Aber wäre es nicht viel cooler wir könnten folgendes machen?
+
+```bash{linenos=false,.command}
+php8.1 script.php
+php8.0 script.php
+php7.4 script.php
+```
+
+So könnten wir ganz einfach Skripte in verschiedenen PHP Versionen ausführen, unabhängig von der lokal installierten
+Version. Mit einem Docker-Befehl und ein paar Aliassen geht das ganz einfach:
 
 ```bash{linenos=false}
 alias php8.1="docker run --rm -it -v $PWD:/app -w /app php:8.1-cli php"
 ```
 
-Mit diesem alias können wir dann mit `php8.1 script.php` unser Skript in einem Docker-Container ausführen. Aber wie 
-funktioniert das Ganze? Lasst und das alias mal genauer anschauen.
+Mit diesem alias können wir unser Skript in einem Docker-Container ausführen. Aber wie 
+funktioniert das Ganze? Lasst und den Docker-Befehl mal genauer anschauen.
 
 ```bash{linenos=false}
-docker 
-    run            # Befehl run = starten.
-    --rm           # --rm entfernt den Container nachdem er das Skript durchlaufen hat.
-    -it            # -it erlaubt es uns eine interaktives Terminal zum Container zu öffnen.
-    -v $PWD:/app   # -v steht für Volume, mit diesem Befehl wird unser aktuelles Verzeichnis in /app im Container kopiert
-    -w /app        # -w setzt das aktuelle Arbeitsverzeichnis auf /app wo unser Skript nun liegt.
-    php:8.1-cli    # php:8.1-cli ist das Docker-Image welches wir nutzen. Das könnt ihr euch wie eine Anleitung vorstellen.
-    php            # Zuletzt rufen wir den Befehl php auf um unser Skript im Container zu starten.
+docker
+    run
+    --rm
+    -it
+    -v $PWD:/app
+    -w /app
+    php:8.1-cli
+    php
 ```
 
-```bash
-alias composerd="docker run --rm -it -v $PWD:/app -v ${COMPOSER_HOME:-$HOME/.composer}:/tmp fmeyer:composer2"
-alias composer1="docker run --rm -it -v $PWD:/app -v ${COMPOSER_HOME:-$HOME/.composer}:/tmp fmeyer:composer"
+ - `run` = Starten.
+ - `--rm` Entfernt den Container, nachdem er das Skript durchlaufen hat.
+ - `-it` Erlaubt es uns ein interaktives Terminal zum Container zu öffnen.
+ - `-v` Steht für Volume, hiermit wird unser aktuelles Verzeichnis in `/app` im Container gemounted.
+ - `-w` Setzt das aktuelle Arbeitsverzeichnis im Container auf `/app` wo unser Skript nun liegt.
+ - `php:8.1-cli` Ist das Docker-Image, welches wir nutzen.
+ - `php` Den Befehl den wir im Container zu aufrufen.
+
+Jetzt müssen wir uns nur Aliasse für die PHP-Versionen, die wir brauchen in unserer `.bashrc` oder `.zshrc` anlegen.
+Wir können übrigens auf die gleiche Art und Weise composer in unseren Projekten nutzen. In eurer `.bashrc`/`.zshrc` 
+sollte das dann etwa so aussehen:
+
+```bash{linenos=false}
+alias composer="docker run --rm -it -v $PWD:/app -v ${COMPOSER_HOME:-$HOME/.composer}:/tmp composer:latest"
+alias composer1="docker run --rm -it -v $PWD:/app -v ${COMPOSER_HOME:-$HOME/.composer}:/tmp composer:1"
 alias php8.1="docker run --rm -it -v $PWD:/app -w /app php:8.1-cli php"
 alias php8.0="docker run --rm -it -v $PWD:/app -w /app php:8.0-cli php"
 alias php7.4="docker run --rm -it -v $PWD:/app -w /app php:7.4-cli php"
 ```
+
+## Docker-Image für die lokale Entwicklung
+
+Soweit so gut, wir können nun Skripte lokal in verschieden PHP-Versionen ausführen, aber in den meisten Projekten sind
+die Anforderungen dann doch etwas komplexer. Was zum Beispiel, wenn wir lokal PHPUnit mit XDebug ausführen möchten um
+unsere Code-Coverage herauszufinden oder durch den Code zu debuggen? Anstatt Docker-Images wie `php:8.1-cli` nur zu
+benutzen können wir auch eigene Images erstellen, um diese zum Beispiel in PHPStorm für die vorher genannten Zwecke zu 
+nutzen. Um ein Image zu erstellen, brauchen wir erstmal ein `Dockerfile`. Darin legen wir dann fest wie unser Image
+aufgebaut sein soll. 
+
+```dockerfile
+FROM php:8.1.1-cli AS php
+FROM composer AS composer
+FROM mlocati/php-extension-installer AS php-extension-installer
+
+
+FROM php AS dev
+# copy composer into php image
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+# copy php-extension-installer into php image
+COPY --from=php-extension-installer /usr/bin/install-php-extensions /usr/bin/install-php-extensions
+# install xdebug for remote debugging
+RUN install-php-extensions xdebug;
+```
+
+Fangen wir oben an, zuerst holen wir uns 3 bestehende Images in unser `Dockerfile` und benennen sie. Für unsere Zwecke
+brauchen wir natürlich PHP, Composer und zuletzt den PHP Extension Installer. Dann referenzieren wir das PHP Image und
+kopieren Composer und PHP Extension Installer in das PHP Image. Dann müssen wir nur noch XDebug installieren und haben
+ein fertiges Image. Falls ihr weitere PHP Extensions benötigt könnt ihr deren Namen einfach anhängen: 
+`RUN install-php-extensions xdebug apcu redis pdo_mysql gd`. Wie können wir das ganze jetzt in PHPStorm benutzen? Dafür
+müssen wir das Image in unser lokales Docker-Repository befördern mit einem Tag, der dem Image einen Namen gibt. Wir
+führen folgenden Befehl im Verzeichnis aus wo das `Dockerfile` liegt (oder ersetzen `.` mit dem Pfad). Den Namen könnt
+ihr frei auswählen ich benutze `fmeyer/<image-name>`.
+
+```bash{linenos=false,.command}
+docker build -t fmeyer:php8.1-dev .
+```
+
+## Einrichtung von Docker in PHPStorm
+
+So kommen wir zur Einrichtung in PHPStorm, als Erstes wollen wir ein CLI Interpreter hinzufügen und klicken auf die drei
+Punkte.
+
+![](phpstrm01.png)
+
+Hier klicken wir auf das Plus und wählen From Docker, ...
+
+![](phpstrm02.png)
+
+Bei den Punkten wählen wir Docker und suchen in der Liste unser vorher erstelltes Image.
+
+![](phpstrm03.png)
+
+So sollte das dann aussehen wichtig ist dass ihr hier eine PHP und XDebug Version seht.
+
+![](phpstrm04.png)
+
+Das wars für den CLI Interpreter, richten wir nun ein Test Framework ein um PHPUnit in PHPStorm nutzen zu können. Wir
+wählen hier nach dem Klick auf Plus PHPUnit by Remote Interpreter.
+
+![](phpstrm05.png)
+
+Wir wählen unseren Interpreter und sollten dann in etwa Folgendes sehen. Wichtig hier auch die PHPUnit Version, außerdem
+müsst ihr die richtigen Pfade zu eurer `autoload.php` und eurer PHPUnit Konfiguration wählen.
+
+![](phpstrm06.png)
+
+Auf dieselbe Weise könnt ihr auch die Composer-Integration in PHPStorm einrichten.
+
+## Fazit
+
+So nun können wir endlich unser lokales PHP wegschmeißen (müssen wir aber nicht)! Wir sind jetzt deutlich flexibler in
+unserer lokalen Entwicklung und können Docker Experte in unser Resume schreiben 😉. Unten habe ich euch noch ein paar
+weiterführende Links zu Dokumentationen da gelassen ✌🏻. Das ist mein erster Blog-Beitrag / Tutorial - ich hoffe, es hat
+euch gefallen! Habt ihr Feedback, Vorschläge, Verbesserungen oder ein Rechtschreibfehler gefunden 😱? Lasst es mich
+wissen oder öffnet hier eine PR --> [GitHub](https://github.com/dinooo13/fmeyer.dev-content)
