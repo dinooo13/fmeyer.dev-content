@@ -1,6 +1,7 @@
 ---
 author: Fabian Meyer
 title: Mutation Testing in PHP ☣️
+slug: mutation-testing
 description: Was Mutation Testing uns über unsere Testqualität verraten kann.
 date: 2022-08-22
 image: dna.jpg
@@ -175,7 +176,7 @@ Berechnet wird die MCC folgerndermaßen:
 ### Covered Code MSI
 
 Covered Code MSI ist einfach der MSI, in dem Teil des Codes der von unserer Testsuite abgedeckt wird. Daran können wir
-erkennen wie effektiv unsere vorhandenen Tests sind. Berechnet wird es folgerndermaßen:
+erkennen wie effektiv unsere vorhandenen Tests sind. Berechnet wird es folgendermaßen:
 
 `Abgedeckte Mutanten = Alle Mutanten - Nicht abgedeckte Mutanten`
 
@@ -241,4 +242,4 @@ Lassen wir infectionPHP nun noch einmal laufen sehen wir, wir haben 100 % MSI.
 Damit kommen wir auch zum Ende dieses Artikels ich hoffe, es hat euch gefallen und ihr konntet etwas für eure 
 Softwareprojekte mitnehmen! Unten habe ich euch wieder ein paar weiterführende Links zu Dokumentationen da gelassen ✌🏻.
 Habt ihr Feedback, Vorschläge, Verbesserungen oder ein Rechtschreibfehler gefunden 😱? Lasst es mich wissen oder öffnet 
-hier eine PR –> GitHub.
+hier eine PR –> [GitHub](https://github.com/dinooo13/fmeyer.dev-content).
