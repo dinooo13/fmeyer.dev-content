@@ -28,7 +28,7 @@ links:
 
 Test quality is often a big question mark in software development. High or low coverage in the end everything depends on
 the effectiveness of the testsuite. Mutation testing is a technique, we can use to get a deeper insight into the quality
-of our tests. But how is mutation testing helping us? Like the name suggests it's mutating our code, if a test is green
+of our tests. But how can mutation testing help us? Like the name suggests it's mutating our code, if a test is green
 even though the code was modified the mutant is escaped. On the other hand if the test turns out to be red, the mutant
 was caught. Lets look at some code examples to understand how our code is mutated.
 
@@ -66,10 +66,10 @@ The logic mutation is putting our logic in expressions to the test. Lets look at
     }
 ```
 
-I replaced the `&&` with a `||`, now every age equal or above 18 OR equal or lower than 99. If our test is not catching this
-change to our code, we're gonna have problem because every age is now allowed in our application. If we negate the
-expression with a `!` `!($age >= 18 && $age <= 99)` we get a different problem now every age out of our range is accepted.
-What we did to our code example is basically what the logic mutation does automatically.
+I replaced the `&&` with a `||`, now every age equal or above 18 OR equal or lower than 99 is valid. If our test is not 
+catching this change to our code, we're gonna have problem because every age is now allowed in our application. If we
+negate the expression with a `!` we get this `!($age >= 18 && $age <= 99)` we have a different problem now every age out
+of our range is accepted. What we did to our code example is basically what the logic mutation does automatically for us.
 
 ### More mutations
 
@@ -129,9 +129,9 @@ configuration file `infection.json`
 }
 ```
 
-Of course, we don't want to remember how to run infectionPHP, it's good practice to add a composer script to run the 
+Of course, we don't want to remember how to run infectionPHP, so it's good practice to add a composer script to run the 
 mutation tests. infectionPHP automatically runs PHPUnit with coverage, so a coverage engine like XDebug is required. We
-can use our php docker image for development from my last tutorial.
+can use our php docker image for development from my last tutorial for this.
 
 ```json
     "scripts": {
@@ -181,8 +181,8 @@ determine how effective our current testsuite really is. It's calculated like th
 ## Results
 
 The html report visualizes the results of the mutation tests, we can also see which mutants escaped our testsuite. This
-makes it really easy to catch this mutant in a new test. I prepared a little
-[example repo](https://github.com/dinooo13/mutation-testing-example) on GitHub. In this repo we find a little project
+makes it really easy to catch these mutants in a new test. I prepared a little
+[example repo](https://github.com/dinooo13/mutation-testing-example) on GitHub. In this repo we find a small project
 with a testsuite and some uncovered mutants. Let's clone the repo and run infectionPHP, it generates the html report, if
 we open it up we see the following:
 

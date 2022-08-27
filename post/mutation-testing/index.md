@@ -72,7 +72,7 @@ Ich habe das `&&` mit einem `||` getauscht, nun wäre jedes Alter erlaubt, welch
 ODER kleiner-gleich 99 ist. Wenn unser Test diese Veränderung im Code nicht bemerkt, haben wir ein Problem, denn jetzt ist
 jedes Alter in unserem Programm erlaubt. Würden wir den Ausdruck mit einem vorangestellten `!` negieren
 `!($age >= 18 && $age <= 99)` hätten wir auch ein Problem, denn jetzt sind nur Werte außerhalb unserer Grenzen erlaubt.
-Damit haben wir der Logikmutation für diesen Fall quasi die Arbeit abgenommen.
+Damit haben wir manuell ausgeführt, was die Logikmutation automatisiert ausführt.
 
 ### Weitere Mutationen
 
@@ -167,7 +167,7 @@ besonders gut ist. Berechnet wird die MSI folgendermaßen:
 ### Mutation Code Coverage (MCC)
 
 Die MCC gibt an wie viel Prozent der Mutanten von unserer Testsuite abgedeckt werden.
-Berechnet wird die MCC folgerndermaßen:
+Berechnet wird die MCC folgendermaßen:
 
 `Abgedeckte Mutanten = Alle Mutanten - Nicht abgedeckte Mutanten`
 
