@@ -3,7 +3,7 @@ author: Fabian Meyer
 title: Mutation Testing in PHP ☣️
 slug: mutation-testing
 description: What mutation testing can tell us about our test quality.
-date: 2022-08-22
+date: 2022-08-27
 image: dna.jpg
 tags:
   - php
