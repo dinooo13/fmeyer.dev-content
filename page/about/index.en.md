@@ -28,7 +28,7 @@ links:
 
 ## Hey there! 👋🏼
 
-My name is Fabian Meyer and I am a passionate software developer. Ich love working in a team and I always try to give everything for my team and my project alike. I want to motivate others to do the same, thats why I made this website. Software development is my passion and I'd like to dive deep into my favorite topics and share the best bits with other people.
+My name is Fabian Meyer and I am a passionate software developer. I love working in a team and I always try to give everything for my team and my project alike. I want to motivate others to do the same, thats why I made this website. Software development is my passion and I'd like to dive deep into my favorite topics and share the best bits with other people.
 
 ## Where have I worked? 🏢
 
